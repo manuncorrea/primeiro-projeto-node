@@ -5,6 +5,13 @@ import AppoinmentRepository from '../models/repositories/AppointmentsRepository'
 const appointmentsRouter = Router();
 const appointmentsRepository = new AppoinmentRepository();
 
+//Rota de listagem de appoints
+appointmentsRouter.get('/', (request, response) => {
+  const appointment = appointmentsRepository.all();
+
+  return response.json(appointment);
+})
+
 appointmentsRouter.post('/', (request, response) => {
   const { provider, date } = request.body;
 
