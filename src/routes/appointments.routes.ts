@@ -1,20 +1,15 @@
 import { Router } from 'express';
-import { uuid } from 'uuidv4'; // função para criar ids dentro do projeto
 import { startOfHour, parseISO, isEqual } from 'date-fns';
+import Appoinment from '../models/Appointment';
 
 const appointmentsRouter = Router();
-
-interface Appoinment{
-  id: string;
-  provider: string;
-  date: Date;
-}
 
 const appointments: Appoinment[] = [];
 
 appointmentsRouter.post('/', (request, response) => {
   const { provider, date } = request.body;
 
+  // Validação de datas
   const parsedDate = startOfHour(parseISO(date));
 
   const findAppointmentInSameDate = appointments.find(appointment => 
@@ -27,11 +22,7 @@ appointmentsRouter.post('/', (request, response) => {
       .json({ message: 'This, appointment is already booked '});
   }
 
-  const appointment = {
-    id: uuid(),
-    provider,
-    date: parsedDate,
-  };
+  const appointment = new Appoinment(provider, parsedDate);
 
   appointments.push(appointment);
 
