@@ -1,7 +1,7 @@
 //Arquivo responsavel pelo agendamento 
 
 import { isEqual } from 'date-fns';
-import Appointment from '../Appointment';
+import Appointment from '../models/Appointment';
 
 // DTO - Data transfer object
 interface CreateAppointmentDTO{
